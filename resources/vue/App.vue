@@ -1,5 +1,7 @@
 <script setup>
+import { onMounted } from 'vue';
 import Config from './components/Config.vue';
+import JsonAndHtml from './components/JsonAndHtml.vue';
 import List from './components/List.vue';
 import View from './components/View.vue';
 
@@ -89,20 +91,25 @@ const formConfigModel = ref({
 const dialogConfig = ref({
     show:false,
     type:'export',
-    title:'导出 json',
+    title:'',
     content:'',
     width:800
 })
 
 const onView = () => {
     const data = ListRef.value.getData()
+    dialogConfig.value.title = '预览'
     dialogConfig.value.type = 'view'
     dialogConfig.value.content = data
     dialogConfig.value.show = true
 }
 
 const onExport = () => {
-   const data = ListRef.value.getData()
+   const data = {
+    form:formConfigModel.value,
+    list:ListRef.value.getData()
+   }
+   dialogConfig.value.title = '导出 json'
    dialogConfig.value.type = 'export'
    dialogConfig.value.content = data.list
    dialogConfig.value.show = true
@@ -115,6 +122,7 @@ const onClear = () => {
 const onSure = () => {
 
 }
+
 
 </script>
 
@@ -158,7 +166,7 @@ const onSure = () => {
         destroy-on-close
     >
         <div v-if="dialogConfig.type === 'export'">
-            <json-viewer :value="dialogConfig.content" copyable :expanded="true" :expandDepth="4" theme="dark" class="max-h-300 overflow-auto"></json-viewer>
+            <JsonAndHtml :data="dialogConfig.content" />
         </div>
         <div v-if="dialogConfig.type === 'view'">
             <View :data="dialogConfig.content" />

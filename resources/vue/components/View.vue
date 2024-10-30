@@ -1,5 +1,6 @@
 
 <script setup>
+import { inject } from 'vue';
 import List from './List.vue'
 
 const props = defineProps({
@@ -9,13 +10,17 @@ const props = defineProps({
     }
 })
 
+const data = inject('data') || props.data
 
-const {form, list} = props.data
+const {form, list} = data
 
 const ListRef = ref(null)
 
+const submitCB = inject('submitCB')
+
 const onSubmit = () => {
-    console.log(ListRef.value.getFieldData())
+    // console.log(ListRef.value.getFieldData())
+    submitCB(ListRef.value.getFieldData())
 }
 
 const onReset = () => {

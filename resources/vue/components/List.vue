@@ -25,11 +25,58 @@ const onDel = () => {
     activeIndex.value = 0
 }
 
+const dataMap = {
+    radio:{
+        options:[{value:'', label:''}],
+    },
+    check:{
+        options:[{value:'', label:''}]
+    },
+    input:{
+        placeholder:'请输入',
+        inputT:'text',
+        inputR:'',
+        clearable:true,
+        inputR:3,
+        showN:false
+    },
+    select:{
+        placeholder:'请选择',
+        clearable:true,
+        filterable:false,
+        multiple:false,
+        selectL:0,
+        options:[{value:'', label:'请选择'}],
+    },
+    date:{
+        placeholder:'请选择日期',
+        dateT:'date',
+        dateF:'YYYY-MM-DD',
+        clearable:true
+    },
+    color:{
+        colorF:'hex',
+        colorA:false
+    },
+    switch:{
+        switchA:undefined,
+        switchI:undefined
+    },
+    slider:{
+        sliderMax:100,
+        sliderMin:0,
+        sliderStep:1,
+        sliderR:false,
+        sliderS:false,
+        sliderS:false
+    }
+}
+
 const push = (type) => {
     const index = list.value[list.value.length - 1]?.index ? list.value[list.value.length - 1].index + 1 : 1
     const data = {
         type,
-        label:'标签',
+        label:'',
         prop:'',
         index,
         defaultV:'',
@@ -39,23 +86,29 @@ const push = (type) => {
         disabled:false,
         placeholder:'',
         inputT:'',
-        clearable:false,
-        maxL:0,
-        inputR:0,
-        showN:false,
-        filterable:false,
-        multiple:false,
-        selectL:0,
-        dateT:'date',
-        dateF:'YYYY-MM-DD',
-        colorF:"hex",
-        colorA:false,
-        switchA:1,
-        switchI:2,
-        options:[{value:'', label:''}],
+        clearable:undefined,
+        maxL:undefined,
+        inputR:undefined,
+        showN:undefined,
+        filterable:undefined,
+        multiple:undefined,
+        selectL:undefined,
+        dateT:undefined,
+        dateF:undefined,
+        colorF:undefined,
+        colorA:undefined,
+        switchA:undefined,
+        switchI:undefined,
+        options:undefined,
+        sliderMax:undefined,
+        sliderMin:undefined,
+        sliderStep:undefined,
+        sliderR:undefined,
+        sliderS:undefined,
+        sliderS:undefined
     }
 
-    list.value.push(data)
+    list.value.push({...data, ...dataMap[type]})
     activeIndex.value = index
 }
 

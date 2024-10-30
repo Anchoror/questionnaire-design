@@ -1,5 +1,4 @@
 <script setup>
-    
     const props = defineProps({
       config: {
         type: Object,
@@ -23,6 +22,5 @@
 </template>
 
 <style scoped>
-
 
 </style>
