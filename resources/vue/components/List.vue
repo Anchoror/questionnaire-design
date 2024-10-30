@@ -1,128 +1,135 @@
 <script setup>
 import Item from './Item.vue';
+import { vDraggable } from 'vue-draggable-plus'
+
 const props = defineProps({
-    formConfig:{
+    formConfig: {
         type: Object,
         default: () => ({})
     },
-    data:{
+    data: {
         type: Array,
         default: () => []
     },
-    disabled:{
+    disabled: {
         type: Boolean,
         default: false
     }
 })
 const emit = defineEmits(['change'])
 
-const list = ref(props.data)
-const activeIndex = ref(0)
+const list = ref(props.data.map((item, index) => item.index = index + 1))
+const activeId = ref(0)
+const listItemIndex = ref(list.value.length + 1)
 
-const onDel = () => {
-    if(props.disabled) return
-    list.value = list.value.filter((item) => activeIndex.value !== item.index)
-    activeIndex.value = 0
-}
+// const onDel = () => {
+//     if (props.disabled) return
+//     list.value = list.value.filter((item) => activeId.value !== item.index)
+//     activeId.value = 0
+// }
 
 const dataMap = {
-    radio:{
-        options:[{value:'', label:''}],
+    radio: {
+        options: [{ value: '', label: '' }],
     },
-    check:{
-        options:[{value:'', label:''}]
+    check: {
+        options: [{ value: '', label: '' }]
     },
-    input:{
-        placeholder:'请输入',
-        inputT:'text',
-        inputR:'',
-        clearable:true,
-        inputR:3,
-        showN:false
+    input: {
+        placeholder: '请输入',
+        inputT: 'text',
+        inputR: '',
+        clearable: true,
+        inputR: 3,
+        showN: false
     },
-    select:{
-        placeholder:'请选择',
-        clearable:true,
-        filterable:false,
-        multiple:false,
-        selectL:0,
-        options:[{value:'', label:'请选择'}],
+    select: {
+        placeholder: '请选择',
+        clearable: true,
+        filterable: false,
+        multiple: false,
+        selectL: 0,
+        options: [{ value: '', label: '请选择' }],
     },
-    date:{
-        placeholder:'请选择日期',
-        dateT:'date',
-        dateF:'YYYY-MM-DD',
-        clearable:true
+    date: {
+        placeholder: '请选择日期',
+        dateT: 'date',
+        dateF: 'YYYY-MM-DD',
+        clearable: true
     },
-    color:{
-        colorF:'hex',
-        colorA:false
+    color: {
+        colorF: 'hex',
+        colorA: false
     },
-    switch:{
-        switchA:undefined,
-        switchI:undefined
+    switch: {
+        switchA: undefined,
+        switchI: undefined
     },
-    slider:{
-        sliderMax:100,
-        sliderMin:0,
-        sliderStep:1,
-        sliderR:false,
-        sliderS:false,
-        sliderS:false
+    slider: {
+        sliderMax: 100,
+        sliderMin: 0,
+        sliderStep: 1,
+        sliderR: false,
+        sliderS: false,
+        sliderS: false
+    },
+    grid: {
+        cols: 2,
+        children: [[], []]
     }
 }
 
-const push = (type) => {
-    const index = list.value[list.value.length - 1]?.index ? list.value[list.value.length - 1].index + 1 : 1
+const createItem = (type) => {
+    const id = listItemIndex.value
     const data = {
         type,
-        label:'',
-        prop:'',
-        index,
-        defaultV:'',
-        labelW:'auto',
-        labelP:'',
-        span:24,
-        disabled:false,
-        placeholder:'',
-        inputT:'',
-        clearable:undefined,
-        maxL:undefined,
-        inputR:undefined,
-        showN:undefined,
-        filterable:undefined,
-        multiple:undefined,
-        selectL:undefined,
-        dateT:undefined,
-        dateF:undefined,
-        colorF:undefined,
-        colorA:undefined,
-        switchA:undefined,
-        switchI:undefined,
-        options:undefined,
-        sliderMax:undefined,
-        sliderMin:undefined,
-        sliderStep:undefined,
-        sliderR:undefined,
-        sliderS:undefined,
-        sliderS:undefined
+        label: '',
+        prop: '',
+        id,
+        defaultV: '',
+        labelW: 'auto',
+        labelP: '',
+        span: 24,
+        disabled: false,
+        placeholder: '',
+        // inputT:undefined,
+        // clearable:undefined,
+        // maxL:undefined,
+        // inputR:undefined,
+        // showN:undefined,
+        // filterable:undefined,
+        // multiple:undefined,
+        // selectL:undefined,
+        // dateT:undefined,
+        // dateF:undefined,
+        // colorF:undefined,
+        // colorA:undefined,
+        // switchA:undefined,
+        // switchI:undefined,
+        // options:undefined,
+        // sliderMax:undefined,
+        // sliderMin:undefined,
+        // sliderStep:undefined,
+        // sliderR:undefined,
+        // sliderS:undefined,
+        // sliderS:undefined
+        ...dataMap[type],
     }
-
-    list.value.push({...data, ...dataMap[type]})
-    activeIndex.value = index
+    return data
 }
 
 const getData = () => {
     const data = {
-        form: {...props.formConfig},
-        list:[...list.value]
+        form: { ...props.formConfig },
+        list: [...list.value]
     }
     return data
 }
 
 const clear = () => {
     list.value = []
-    activeIndex.value = 0
+    activeId.value = 0
+    listItemIndex.value = 0
     emit('change', null)
     return
 }
@@ -133,7 +140,7 @@ const getFieldData = () => {
     const dataArr = listItemRefs.value.map(item => item.getField())
     const obj = {}
     dataArr.forEach(item => {
-        for(const key in item){
+        for (const key in item) {
             obj[key] = item[key]
         }
     })
@@ -144,29 +151,57 @@ const reset = () => {
     listItemRefs.value.forEach(item => item.reset())
 }
 
-watch(()=> activeIndex.value,  () => {
-    emit('change', list.value.find(item => item.index === activeIndex.value))
+watch(() => activeId.value, () => {
+    emit('change', list.value.find(item => item.id === activeId.value))
 })
 
 defineExpose({
-    push,
+    createItem,
     getData,
     getFieldData,
     clear,
     reset,
-    activeIndex
+    activeId
 })
 
+
+const onUpdate = (e) => {
+    console.log('update', e)
+}
+const onAdd = (e) => {
+    const { newIndex, data, clonedData } = e
+
+    console.log(e)
+    activeId.value = clonedData.id
+    listItemIndex.value += 1
+}
 </script>
 
 <template>
-    <el-row :gutter="formConfig.gutter">
-      <el-col :span="item.span" v-for="item in list" :key="item.index" class="relative">
-        <Item ref="listItemRefs" :config="item" v-model:active-index="activeIndex" :formConfig :disabled="props.disabled"></Item>
+    <!-- <el-row :gutter="formConfig.gutter">
+      <el-col >
+       
 
-        <div class="bg-#409eff absolute top-0 right-0 color-#fff text-6 lh-6" v-if="!props.disabled && (activeIndex === item.index)" @click="onDel">
+        <div class="bg-#409eff absolute top-0 right-0 color-#fff text-6 lh-6" v-if="!props.disabled && (activeId === item.index)" @click="onDel">
             <IconLsiconDeleteOutline />
         </div>
       </el-col>
-    </el-row>
+    </el-row> -->
+    <div v-draggable="[
+        list,
+        {
+            animation: 150,
+            ghostClass: 'ghost',
+            group: {
+                name: 'formList',
+            },
+            onUpdate,
+            onAdd,
+        }
+    ]" class="draggler">
+        <template v-for="item in list" :key="item.id">
+            <Item  ref="listItemRefs" :config="item" v-model:active-id="activeId" :formConfig :disabled="props.disabled">
+            </Item>
+        </template>
+    </div>
 </template>

@@ -9,9 +9,7 @@ import '@/styles/app.less'
 const app = createApp(App)
 app.mount('#app')
 
-
-
-window.renderForm = (selector, config) =>{
+const VForm = (selector, config) =>{
     import('@/components/View.vue').then(module => {
         const FormComponent = module.default
         const Form = createApp(FormComponent)
@@ -20,8 +18,13 @@ window.renderForm = (selector, config) =>{
         Form.mount(selector, true)
     })
 }
-document.dispatchEvent(new CustomEvent('renderVue', {
-    detail: {
-        renderForm: window.renderForm
+const VDialog = () => {
+    
+}
+
+document.dispatchEvent(new CustomEvent('vloaded', {
+    detail:{
+        VForm,
+        VDialog
     }
 }))

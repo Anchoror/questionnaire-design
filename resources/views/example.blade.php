@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>questionnaire-design</title>
-
     @vite(['resources/vue/main.js'])
 
 
@@ -22,8 +21,9 @@
 </body>
 
 <script>
-    document.addEventListener('renderVue', function () {
-        renderForm('#form',{
+    document.addEventListener('vloaded', function (vload) {
+        const { VForm } = vload.detail
+        VForm('#form',{
             json:{
             "form": {
                 "type": "normal",
