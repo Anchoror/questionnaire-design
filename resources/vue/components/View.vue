@@ -1,38 +1,41 @@
-
 <script setup>
 import { inject } from 'vue';
-import List from './List.vue'
+
+import ELViewItem from './ELViewItem.vue';
 
 const props = defineProps({
-    data:{
-        type:Object,
+    data: {
+        type: Object,
         default: () => ({})
     }
 })
 
 const data = inject('data') || props.data
 
-const {form, list} = data
+const { form, list } = data
 
-const ListRef = ref(null)
-
-const submitCB = inject('submitCB')
+// const submitCB = inject('submitCB')
 
 const onSubmit = () => {
-    // console.log(ListRef.value.getFieldData())
-    submitCB(ListRef.value.getFieldData())
+    // submitCB(formModel.value)
+    console.log(formModel.value)
 }
 
 const onReset = () => {
-    ListRef.value.reset()
+    formModel.value = {}
 }
+
+const formModel = ref({})
 </script>
 
 
 <template>
     <div>
-        <List ref="ListRef" :formConfig="form" :data="list" :disabled="true"/>
-
+        <el-form :model="formModel" :label-position="form.labelP" :label-width="(form.labelW + 1) + 'em'">
+            <template v-for="(config, index) in list" :key="index">
+                <ELViewItem v-model:formModel="formModel" :config />
+            </template>
+        </el-form>
         <div class="h-20 flex justify-end items-center">
             <el-button type="primary" @click="onSubmit">
                 提交

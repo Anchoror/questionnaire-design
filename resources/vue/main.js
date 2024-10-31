@@ -1,12 +1,12 @@
 import { createApp } from 'vue'
 import App from '@/App.vue'
-
+import pinia from '@/stores'
 // 样式文件
-import "vue3-json-viewer/dist/index.css"
 import 'virtual:uno.css'
 import '@/styles/app.less'
 
 const app = createApp(App)
+app.use(pinia)
 app.mount('#app')
 
 const VForm = (selector, config) =>{

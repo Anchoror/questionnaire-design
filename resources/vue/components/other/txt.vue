@@ -12,11 +12,19 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:formModel'])
+
+const fontStyle = computed(() => {
+    return {
+        fontSize: props.config.fontS + 'px',
+        color: props.config.fontC
+    }
+})
 </script>
 
 <template>
-    <el-color-picker v-model="formModel[config.prop]" :show-alpha="config.colorA" :color-format="config.colorF"
-        :disabled="config.disabled" />
+    <el-text :style="fontStyle" :id="config.prop">
+        {{ config.content }}
+    </el-text>
 </template>
 
 <style scoped></style>

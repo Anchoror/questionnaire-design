@@ -28,6 +28,8 @@
     },
     "dependencies": {
         "@wdns/vue-code-block": "^2.3.3",
+        "pinia": "^2.2.5",
+        "pinia-plugin-persist": "^1.0.0",
         "vue-draggable-plus": "^0.5.4"
     }
 }

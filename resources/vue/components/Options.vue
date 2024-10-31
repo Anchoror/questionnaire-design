@@ -7,7 +7,7 @@ const props = defineProps({
     }
 })
 
-console.log(props.optionsValue)
+// console.log(props.optionsValue)
 
 const emit = defineEmits(['update:optionsValue'])
 
@@ -40,7 +40,8 @@ const onDel = (formModel) => {
                 <div class="flex gap-4 max-w-120 items-center mb-4">
                     <el-input class="flex-1" v-model="formModel.label" placeholder="请输入"></el-input>
                     <el-input class="flex-1" v-model="formModel.value" placeholder="请输入"></el-input>
-                    <el-button type="danger" circle size="small" @click="onDel(formModel)" :disabled="optionsValue.length <= 1">
+                    <el-button type="danger" circle size="small" @click="onDel(formModel)"
+                        :disabled="optionsValue.length <= 1">
                         <IconLsiconDeleteOutline />
                     </el-button>
                 </div>

@@ -11,6 +11,12 @@ importers:
       '@wdns/vue-code-block':
         specifier: ^2.3.3
         version: 2.3.3
+      pinia:
+        specifier: ^2.2.5
+        version: 2.2.5(vue@3.5.12)
+      pinia-plugin-persist:
+        specifier: ^1.0.0
+        version: 1.0.0(pinia@2.2.5(vue@3.5.12))(vue@3.5.12)
       vue-draggable-plus:
         specifier: ^0.5.4
         version: 0.5.4(@types/sortablejs@1.15.8)
@@ -787,6 +793,9 @@ packages:
   '@vue/compiler-ssr@3.5.12':
     resolution: {integrity: sha512-eLwc7v6bfGBSM7wZOGPmRavSWzNFF6+PdRhE+VFJhNCgHiF8AM7ccoqcv5kBXA2eWUfigD7byekvf/JsOfKvPA==}
 
+  '@vue/devtools-api@6.6.4':
+    resolution: {integrity: sha512-sGhTPMuXqZ1rVOk32RylztWkfXTRhuS7vgAKv0zjqk8gbsHkJ7xfFf+jbySxt7tWObEJwyKaHMikV/WGDiQm8g==}
+
   '@vue/reactivity@3.5.12':
     resolution: {integrity: sha512-UzaN3Da7xnJXdz4Okb/BGbAaomRHc3RdoWqTzlvd9+WBR5m3J39J1fGcHes7U3za0ruYn/iYy/a1euhMEHvTAg==}
 
@@ -1285,6 +1294,28 @@ packages:
     resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
     engines: {node: '>=6'}
 
+  pinia-plugin-persist@1.0.0:
+    resolution: {integrity: sha512-M4hBBd8fz/GgNmUPaaUsC29y1M09lqbXrMAHcusVoU8xlQi1TqgkWnnhvMikZwr7Le/hVyMx8KUcumGGrR6GVw==}
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0
+      pinia: ^2.0.0
+      vue: ^2.0.0 || >=3.0.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+
+  pinia@2.2.5:
+    resolution: {integrity: sha512-T4PEQ4uFv2KIRC8A1Y3k1ceQGTDtxtd7nngYGu1IJUUSpuQoYfGq7w7rOc+f5YN1vx3mEs2NjjtN2IFbNS7jqA==}
+    peerDependencies:
+      '@vue/composition-api': ^1.4.0
+      typescript: '>=4.4.4'
+      vue: ^2.6.14 || ^3.5.11
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      typescript:
+        optional: true
+
   pkg-types@1.2.1:
     resolution: {integrity: sha512-sQoqa8alT3nHjGuTjuKgOnvjo4cljkufdtLMnO2LBP/wRwuDlo1tkaEdMxCRhyGRPacv/ztlZgDPm2b7FAmEvw==}
 
@@ -1529,6 +1560,17 @@ packages:
       sugarss:
         optional: true
       terser:
+        optional: true
+
+  vue-demi@0.12.5:
+    resolution: {integrity: sha512-BREuTgTYlUr0zw0EZn3hnhC3I6gPWv+Kwh4MCih6QcAeaTlaIX0DwOVN0wHej7hSvDPecz4jygy/idsgKfW58Q==}
+    engines: {node: '>=12'}
+    hasBin: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: ^3.0.0-0 || ^2.6.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
         optional: true
 
   vue-demi@0.14.10:
@@ -2275,6 +2317,8 @@ snapshots:
       '@vue/compiler-dom': 3.5.12
       '@vue/shared': 3.5.12
 
+  '@vue/devtools-api@6.6.4': {}
+
   '@vue/reactivity@3.5.12':
     dependencies:
       '@vue/shared': 3.5.12
@@ -2815,6 +2859,18 @@ snapshots:
   pify@4.0.1:
     optional: true
 
+  pinia-plugin-persist@1.0.0(pinia@2.2.5(vue@3.5.12))(vue@3.5.12):
+    dependencies:
+      pinia: 2.2.5(vue@3.5.12)
+      vue: 3.5.12
+      vue-demi: 0.12.5(vue@3.5.12)
+
+  pinia@2.2.5(vue@3.5.12):
+    dependencies:
+      '@vue/devtools-api': 6.6.4
+      vue: 3.5.12
+      vue-demi: 0.14.10(vue@3.5.12)
+
   pkg-types@1.2.1:
     dependencies:
       confbox: 0.1.8
@@ -3092,6 +3148,10 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
       less: 4.2.0
+
+  vue-demi@0.12.5(vue@3.5.12):
+    dependencies:
+      vue: 3.5.12
 
   vue-demi@0.14.10(vue@3.5.12):
     dependencies:

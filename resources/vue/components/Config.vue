@@ -1,27 +1,22 @@
 <script setup>
+import { storeToRefs } from 'pinia';
 import Options from './Options.vue'
-const props = defineProps({
-    formModel: {
-        type: Object,
-        default: () => ({})
-    },
-    formConfigModel:{
-        type:Object,
-        default: () => ({})  
-    },
-    questionMap: {
-        type: Array,
-        default: () => []
-    },
-    disabled: {
-        type: Boolean,
-        default: false
-    }
-})
+import { appStore } from '@/stores/app';
+import { computed } from 'vue';
 
-const emit = defineEmits(['update:formModel', 'update:formConfigModel'])
+const { formModel, formConfig: formConfigModel, componentMap, otherMap, activeId } = storeToRefs(appStore())
 
 const tabsName = ref("1")
+
+
+const onChangeColNum = (num) => {
+    for (let i = 0; i < num; i++) {
+        formModel.value.children[i] = formModel.value.children[i] || []
+        formModel.value.colS[i] = 24 / num
+    }
+    formModel.value.children.splice(num)
+    formModel.value.colS.splice(num)
+}
 
 
 </script>
@@ -31,7 +26,7 @@ const tabsName = ref("1")
     <el-tabs v-model="tabsName" @tab-click="">
         <el-tab-pane label="组件配置" name="1">
             <el-form :model="formModel" class="px-12 h-[calc(100vh-55px-64px)] overflow-auto pb-12"
-                label-position="left" label-width="5em" :disabled>
+                label-position="left" label-width="5em" :disabled="!activeId">
                 <div class="mb-6">基础配置</div>
                 <el-form-item prop="label" label="标签">
                     <el-input v-model="formModel.label" placeholder="请输入" />
@@ -41,7 +36,8 @@ const tabsName = ref("1")
                 </el-form-item>
                 <el-form-item prop="type" label="类型">
                     <el-select v-model="formModel.type" placeholder="请选择" disabled>
-                        <el-option v-for="item in questionMap" :key="item.type" :label="item.name" :value="item.type" />
+                        <el-option v-for="item in [...componentMap, ...otherMap]" :key="item.type" :label="item.name"
+                            :value="item.type" />
                     </el-select>
                 </el-form-item>
                 <el-form-item prop="defaultV" label="默认值">
@@ -66,7 +62,6 @@ const tabsName = ref("1")
                 </el-form-item>
                 <div class="mb-6">主要配置</div>
                 <template v-if="['radio', 'check', 'select'].includes(formModel.type)">
-
                     <Options v-model:optionsValue="formModel.options" />
                 </template>
 
@@ -97,8 +92,6 @@ const tabsName = ref("1")
                     <el-form-item prop="showN" label="字数统计">
                         <el-switch v-model="formModel.showN" />
                     </el-form-item>
-
-
                 </template>
 
                 <template v-if="['select'].includes(formModel.type)">
@@ -185,12 +178,79 @@ const tabsName = ref("1")
                         <el-switch v-model="formModel.sliderS" />
                     </el-form-item>
                 </template>
+
+                <template v-if="['grid'].includes(formModel.type)">
+                    <el-form-item prop="colNum" label="栅格列数">
+                        <el-select v-model="formModel.colNum" placeholder="请选择" @change="onChangeColNum">
+                            <el-option :value="2" label="2 列"></el-option>
+                            <el-option :value="3" label="3 列"></el-option>
+                            <el-option :value="4" label="4 列"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item prop="colS" label="列宽">
+                        <div v-for="(item, index) in formModel.colS" :key="index">
+                            <el-input-number v-model="formModel.colS[index]" :min="0" :max="24"
+                                size="small"></el-input-number>
+                        </div>
+                    </el-form-item>
+                    <el-form-item prop="gutter" label="间距">
+                        <el-input-number v-model="formModel.gutter" placeholder="" step-strictly
+                            :min="0"></el-input-number>
+                        <span class="ml-5">px</span>
+                    </el-form-item>
+                </template>
+
+                <template v-if="['text', 'button'].includes(formModel.type)">
+                    <el-form-item prop="content" label="文本内容">
+                        <el-input v-model="formModel.content" placeholder="请输入"></el-input>
+                    </el-form-item>
+                    <el-form-item prop="fontS" label="文字大小">
+                        <el-input-number v-model="formModel.fontS" placeholder="" step-strictly
+                            :min="0"></el-input-number>
+                        <span class="ml-5">px</span>
+                    </el-form-item>
+                    <el-form-item prop="fontC" label="文字颜色">
+                        <el-color-picker v-model="formModel.fontC" color-format="hex" />
+                    </el-form-item>
+                </template>
+
+                <template v-if="['button'].includes(formModel.type)">
+                    <el-form-item prop="btnW" label="宽度">
+                        <el-input v-model="formModel.btnW" placeholder="请输入"></el-input>
+                    </el-form-item>
+                    <el-form-item prop="btnH" label="高度">
+                        <el-input v-model="formModel.btnH" placeholder="请输入"></el-input>
+                    </el-form-item>
+                    <el-form-item prop="btnS" label="样式类型">
+                        <el-select v-model="formModel.btnS" placeholder="请选择">
+                            <el-option value="" label="默认"></el-option>
+                            <el-option value="primary" label="primary"></el-option>
+                            <el-option value="success" label="success"></el-option>
+                            <el-option value="info" label="info"></el-option>
+                            <el-option value="warning" label="warning"></el-option>
+                            <el-option value="danger" label="danger"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item prop="btnT" label="风格类型">
+                        <el-select v-model="formModel.btnT" placeholder="请选择">
+                            <el-option value="" label="普通"></el-option>
+                            <el-option value="round" label="圆角"></el-option>
+                            <el-option value="circle" label="圆形"></el-option>
+                            <el-option value="link" label="链接"></el-option>
+                            <el-option value="text" label="文字"></el-option>
+                        </el-select>
+                    </el-form-item>
+
+                    <el-form-item prop="btnP" label="是否朴素">
+                        <el-switch v-model="formModel.btnP" />
+                    </el-form-item>
+                </template>
             </el-form>
 
         </el-tab-pane>
         <el-tab-pane label="表单配置" name="2">
             <el-form :model="formConfigModel" class="px-12 h-[calc(100vh-55px-64px)] overflow-auto pb-12"
-                label-position="left" label-width="5em" :disabled>
+                label-position="left" label-width="5em" :disabled="!activeId">
                 <div class="mb-6">基础配置</div>
                 <el-form-item prop="type" label="类型">
                     <el-radio-group v-model="formConfigModel.type">
@@ -209,9 +269,9 @@ const tabsName = ref("1")
                     <el-input-number v-model="formConfigModel.labelW" placeholder="" step-strictly></el-input-number>
                     <span class="ml-5">em</span>
                 </el-form-item>
-                <el-form-item prop="gutter" label="间距">
+                <!-- <el-form-item prop="gutter" label="间距">
                     <el-slider v-model="formConfigModel.gutter" :step="2" size="small" :min="0" :max="100" />
-                </el-form-item>
+                </el-form-item> -->
             </el-form>
         </el-tab-pane>
     </el-tabs>
