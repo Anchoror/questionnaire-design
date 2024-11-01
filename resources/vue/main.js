@@ -9,22 +9,22 @@ const app = createApp(App)
 app.use(pinia)
 app.mount('#app')
 
-const VForm = (selector, config) =>{
-    import('@/components/View.vue').then(module => {
-        const FormComponent = module.default
-        const Form = createApp(FormComponent)
-        Form.provide('data', config.json)
-        Form.provide('submitCB', config.submit)
-        Form.mount(selector, true)
-    })
-}
-const VDialog = () => {
+// const VForm = (selector, config) =>{
+//     import('@/components/View.vue').then(module => {
+//         const FormComponent = module.default
+//         const Form = createApp(FormComponent)
+//         Form.provide('data', config.json)
+//         Form.provide('submitCB', config.submit)
+//         Form.mount(selector, true)
+//     })
+// }
+// const VDialog = () => {
     
-}
+// }
 
-document.dispatchEvent(new CustomEvent('vloaded', {
-    detail:{
-        VForm,
-        VDialog
-    }
-}))
+// document.dispatchEvent(new CustomEvent('vloaded', {
+//     detail:{
+//         VForm,
+//         VDialog
+//     }
+// }))

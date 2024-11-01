@@ -28,6 +28,11 @@ const onView = () => {
     dialogConfig.value.title = '预览'
     dialogConfig.value.content = data
     dialogConfig.value.show = true
+
+    setTimeout(() => {
+        const { form } = layui
+        form.render()
+    }, 500);
 }
 
 /**
@@ -46,6 +51,56 @@ const cloneData = (data) => {
 
     return ListRef.value.getComConfigData(data.type)
 }
+
+
+const initList = [
+    {
+        "type": "input",
+        "label": "姓名",
+        "prop": "name",
+        "id": 1,
+        "defaultV": "",
+        "labelW": "auto",
+        "labelP": "",
+        "span": 24,
+        "disabled": false,
+        "placeholder": "请输入",
+        "inputT": "text",
+        "inputR": 3,
+        "clearable": true,
+        "showN": false
+    },
+    {
+        "type": "radio",
+        "label": "性别",
+        "prop": "sex",
+        "id": 2,
+        "defaultV": "1",
+        "labelW": "auto",
+        "labelP": "",
+        "span": 24,
+        "disabled": false,
+        "placeholder": "",
+        "options": [
+            {
+                "value": "1",
+                "label": "男"
+            },
+            {
+                "label": "女",
+                "value": "2"
+            },
+            {
+                "label": "位置",
+                "value": "3"
+            }
+        ]
+    }
+]
+
+onMounted(() => {
+    onView()
+})
 </script>
 
 <template>
@@ -113,7 +168,7 @@ const cloneData = (data) => {
 
         </div>
         <div class="flex-1 px-2">
-            <List ref="ListRef"></List>
+            <List ref="ListRef" :listData="initList"></List>
         </div>
 
         <div class="w-180 h-full px-6 border-l-1 border-l-solid border-gray-300">
@@ -150,5 +205,9 @@ const cloneData = (data) => {
         max-width: 100%;
         border-radius: 4px
     }
+}
+
+.layui-form-radio {
+    margin-top: 0;
 }
 </style>
