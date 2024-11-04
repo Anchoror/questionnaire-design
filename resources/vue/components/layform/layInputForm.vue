@@ -1,4 +1,6 @@
 <script setup>
+import { onMounted } from 'vue';
+
 
 const props = defineProps({
     config: {
@@ -18,6 +20,10 @@ const affix = computed(() => {
 const textareaRef = ref(null)
 
 const count = ref(1)
+
+onMounted(() => {
+    console.log(4)
+})
 </script>
 
 <template>

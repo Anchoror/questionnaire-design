@@ -15,7 +15,6 @@
 
 
 <template>
-     
         <el-checkbox-group v-model="formModel[config.prop]">
           <el-checkbox v-for="item in config.options" :value="item.value">{{item.label}}</el-checkbox>
         </el-checkbox-group>

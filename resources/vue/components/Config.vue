@@ -31,7 +31,7 @@ const onChangeColNum = (num) => {
                 <el-form-item prop="label" label="标签">
                     <el-input v-model="formModel.label" placeholder="请输入" />
                 </el-form-item>
-                <el-form-item prop="prop" label="字段名" required>
+                <el-form-item prop="prop" label="字段名">
                     <el-input v-model="formModel.prop" placeholder="请输入" />
                 </el-form-item>
                 <el-form-item prop="type" label="类型">
@@ -165,13 +165,13 @@ const onChangeColNum = (num) => {
                             :max="formModel.sliderMax || 0"></el-input-number>
                     </el-form-item>
                     <el-form-item prop="sliderStep" label="步长">
-                        <el-input-number v-model="formModel.sliderStep" placeholder="" step-strictly :min="1"
+                        <el-input-number v-model="formModel.sliderStep" placeholder="" :min="0" :precision="2"
                             :max="100"></el-input-number>
                     </el-form-item>
                     <el-form-item prop="sliderR" label="范围选择">
                         <el-switch v-model="formModel.sliderR" />
                     </el-form-item>
-                    <el-form-item prop="sliderS" label="输入框">
+                    <el-form-item prop="sliderI" label="输入框">
                         <el-switch v-model="formModel.sliderI" />
                     </el-form-item>
                     <el-form-item prop="sliderS" label="断点显示">

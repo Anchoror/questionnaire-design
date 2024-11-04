@@ -28,11 +28,6 @@ const onView = () => {
     dialogConfig.value.title = '预览'
     dialogConfig.value.content = data
     dialogConfig.value.show = true
-
-    setTimeout(() => {
-        const { form } = layui
-        form.render()
-    }, 500);
 }
 
 /**
@@ -95,6 +90,131 @@ const initList = [
                 "value": "3"
             }
         ]
+    },
+    {
+        "type": "check",
+        "label": "爱好",
+        "prop": "like",
+        "id": 3,
+        "defaultV": "",
+        "labelW": "auto",
+        "labelP": "",
+        "span": 24,
+        "disabled": false,
+        "placeholder": "",
+        "options": [
+            {
+                "value": "1",
+                "label": "滑雪"
+            },
+            {
+                "label": "游泳",
+                "value": "2"
+            },
+            {
+                "label": "烹饪",
+                "value": "3"
+            },
+            {
+                "label": "打坐",
+                "value": "4"
+            }
+        ]
+    },
+    {
+        "type": "select",
+        "label": "职业",
+        "prop": "job",
+        "id": 4,
+        "defaultV": "4",
+        "labelW": "auto",
+        "labelP": "",
+        "span": 24,
+        "disabled": false,
+        "placeholder": "请选择",
+        "clearable": false,
+        "filterable": true,
+        "multiple": false,
+        "selectL": 0,
+        "options": [
+            {
+                "value": "1",
+                "label": "运动员"
+            },
+            {
+                "label": "厨师",
+                "value": "2"
+            },
+            {
+                "label": "伐木工",
+                "value": "3"
+            },
+            {
+                "label": "司机",
+                "value": "4"
+            }
+        ]
+    },
+    {
+        "type": "date",
+        "label": "出生日期",
+        "prop": "birth",
+        "id": 5,
+        "defaultV": "",
+        "labelW": 5,
+        "labelP": "",
+        "span": 24,
+        "disabled": false,
+        "placeholder": "请选择日期",
+        "dateT": "date",
+        "dateF": "yyyy-MM-dd",
+        "clearable": false
+    },
+    {
+        "type": "color",
+        "label": "幸运色",
+        "prop": "color",
+        "id": 6,
+        "defaultV": "#fff",
+        "labelW": 4,
+        "labelP": "",
+        "span": 24,
+        "disabled": true,
+        "placeholder": "",
+        "colorF": "hex",
+        "colorA": true
+    },
+    {
+        "type": "switch",
+        "label": "是否退休",
+        "prop": "isOut",
+        "id": 7,
+        "defaultV": "1",
+        "labelW": 5,
+        "labelP": "",
+        "span": 24,
+        "disabled": false,
+        "placeholder": "",
+        "switchA": "1",
+        "switchI": "2"
+    },
+    {
+        "type": "slider",
+        "label": "日照比",
+        "prop": "rate",
+        "id": 8,
+        "defaultV": "0.4",
+        "labelW": 4,
+        "labelP": "",
+        "span": 24,
+        "disabled": false,
+        "placeholder": "",
+        "sliderMax": 1,
+        "sliderMin": 0,
+        "sliderStep": 0.2,
+        "sliderI": false,
+        "sliderS": false,
+        "sliderR": false
     }
 ]
 
@@ -208,6 +328,14 @@ onMounted(() => {
 }
 
 .layui-form-radio {
+    margin-top: 0;
+}
+
+.layui-form-item .layui-form-checkbox[lay-skin=primary] {
+    margin-top: 0;
+}
+
+.layui-form-switch {
     margin-top: 0;
 }
 </style>

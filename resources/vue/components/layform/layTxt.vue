@@ -9,11 +9,16 @@ const props = defineProps({
 
 const emit = defineEmits(['update:formModel'])
 
+
 </script>
 
 <template>
-    <input type="checkbox" :name="config.prop" title="" :value="config.switchA" lay-skin="switch"
-        :checked="config.defaultV === config.switchA"></input>
+    <div :style="{
+        color:config.fontC,
+        fontSize:config.fontS + 'px'
+    }">
+        {{ config.content }}
+    </div>
 </template>
 
 <style scoped></style>

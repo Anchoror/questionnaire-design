@@ -11,8 +11,10 @@ const emit = defineEmits(['update:formModel'])
 </script>
 
 <template>
-    <input :type="config.inputT" :name="config.prop" lay-affix="clear" class="layui-input"
-        :placeholder="config.placeholder" />
+    <div>
+        <input v-for="item in config.options" type="checkbox" :name="config.prop" :value="item.value"
+            :title="item.label" :checked="item.value == config.defaultV" class="checkbox-input">
+    </div>
 </template>
 
-<style scoped></style>
+<style lang="less"></style>

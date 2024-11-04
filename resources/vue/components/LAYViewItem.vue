@@ -1,6 +1,7 @@
 <script setup>
 import { appStore } from '@/stores/app'
 import { storeToRefs } from 'pinia';
+import { computed, onMounted, onUpdated } from 'vue';
 const props = defineProps({
     config: {
         type: Object,
@@ -17,12 +18,23 @@ const labelWidth = computed(() => {
     return props.formConfig.labelW + 'em'
 })
 const labelPostion = computed(() => { return props.config.labelP || props.formConfig.labelP })
-const isFlex = computed(() => {
+const isRow = computed(() => {
     return labelPostion.value === 'left' || labelPostion.value === 'right'
 })
 
 const { layformMap } = storeToRefs(appStore())
 
+const labelStyle = computed(() => {
+    return `padding:0;line-height:38px;width:${labelWidth.value};text-align:${!isRow.value ? 'left' : labelPostion.value};`
+})
+
+const itemStyle = computed(() => {
+    return `display:flex;flex-direction:${isRow.value ? 'row' : 'column'};`
+})
+
+onMounted(() => {
+    console.log(3)
+})
 
 </script>
 
@@ -38,12 +50,11 @@ const { layformMap } = storeToRefs(appStore())
         </div>
     </div>
 
-    <div v-else class="w-full layui-row text-left">
+    <div v-else class="layui-row" style="width:100%; text-align: left;">
         <div :class="`layui-col-md` + (config.span / 2)">
-            <div class="layui-form-item flex" :class="isFlex ? 'flex-row' : 'flex-col'">
-                <label
-                    :class="`layui-form-label p-0 lh-19 h-19 text-${!isFlex ? 'left' : labelPostion} w-${labelWidth}`">{{
-                        config.label
+            <div class="layui-form-item" :style="itemStyle">
+                <label class="layui-form-label" :style="labelStyle">{{
+                    config.label
                     }}</label>
                 <div class="flex-1 layui-input-wrap ml-6">
                     <component :is="layformMap[config.type]" :config />

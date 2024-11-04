@@ -1,5 +1,16 @@
 import { defineStore } from "pinia";
 
+import layRadio from "@/components/layform/layRadioForm.vue";
+import layCheck from "@/components/layform/layCheckForm.vue";
+import layInput from "@/components/layform/layInputForm.vue";
+import laySelect from "@/components/layform/laySelectForm.vue";
+import layDate from "@/components/layform/layDateForm.vue";
+import layColor from "@/components/layform/layColorForm.vue";
+import laySwitch from "@/components/layform/laySwitchForm.vue";
+import laySlider from "@/components/layform/laySliderForm.vue";
+import layBtn from "@/components/layform/layBtn.vue";
+import layTxt from "@/components/layform/layTxt.vue";
+
 export const appStore = defineStore(
     "app",
     () => {
@@ -251,39 +262,19 @@ export const appStore = defineStore(
         });
 
         const layformMap = shallowRef({
-            radio: defineAsyncComponent(() =>
-                import("@/components/layform/layRadioForm.vue")
-            ),
-            check: defineAsyncComponent(() =>
-                import("@/components/layform/layCheckForm.vue")
-            ),
-            input: defineAsyncComponent(() =>
-                import("@/components/layform/layInputForm.vue")
-            ),
-            select: defineAsyncComponent(() =>
-                import("@/components/layform/laySelectForm.vue")
-            ),
-            date: defineAsyncComponent(() =>
-                import("@/components/layform/layDateForm.vue")
-            ),
-            color: defineAsyncComponent(() =>
-                import("@/components/layform/layColorForm.vue")
-            ),
-            switch: defineAsyncComponent(() =>
-                import("@/components/layform/laySwitchForm.vue")
-            ),
-            slider: defineAsyncComponent(() =>
-                import("@/components/layform/laySliderForm.vue")
-            ),
-            // upload: defineAsyncComponent(() => import('@/components/form/uploadForm.vue')),
-            // score: defineAsyncComponent(() => import('@/components/form/scoreForm.vue')),
+            radio: layRadio,
+            check: layCheck,
+            input: layInput,
+            select: laySelect,
+            date: layDate,
+            color: layColor,
+            switch: laySwitch,
+            slider: laySlider,
+            // upload: defineAsyncComponent( import('@/components/form/uploadForm.vue')),
+            // score: defineAsyncComponent( import('@/components/form/scoreForm.vue')),
 
-            button: defineAsyncComponent(() =>
-                import("@/components/other/btn.vue")
-            ),
-            text: defineAsyncComponent(() =>
-                import("@/components/other/txt.vue")
-            ),
+            button: layBtn,
+            text: layTxt,
         });
 
         return {

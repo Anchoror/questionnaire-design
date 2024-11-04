@@ -7,7 +7,6 @@ const props = defineProps({
     }
 })
 
-// console.log(props.optionsValue)
 
 const emit = defineEmits(['update:optionsValue'])
 

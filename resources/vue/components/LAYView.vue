@@ -1,6 +1,7 @@
 <script setup>
 
 
+import { onMounted } from 'vue';
 import LAYViewItem from './LAYViewItem.vue'
 
 
@@ -15,8 +16,9 @@ const data = inject('data') || props.data
 
 const { form, list } = data
 
-
-
+onMounted(()=> {
+    console.log(2)
+})
 </script>
 
 

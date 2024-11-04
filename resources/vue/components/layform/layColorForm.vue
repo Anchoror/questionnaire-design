@@ -8,10 +8,29 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:formModel'])
+
+
+const init = () => layui.colorpicker.render({
+        elem: `#colorpicker-${props.config.prop}`,
+        color: props.config.defaultV, // 设置默认色
+        format: props.config.colorF,
+        alpha: props.config.colorA
+    });
+
+
+const childRenderFn = inject('childRenderFn')
+childRenderFn.push(`
+    layui.colorpicker.render({
+        elem: '#colorpicker-${props.config.prop}',
+        color: '${props.config.defaultV}', // 设置默认色
+        format: '${props.config.colorF}',
+        alpha: '${props.config.colorA}'
+    });
+`)
 </script>
 
 <template>
-    <input type="text" :name="config.prop" lay-affix="clear" class="layui-input" :placeholder="config.placeholder" />
+    <div :id="`colorpicker-${config.prop}`"></div>
 </template>
 
 <style scoped></style>
