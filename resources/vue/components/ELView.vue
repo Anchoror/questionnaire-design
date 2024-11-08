@@ -36,7 +36,7 @@ const formModel = ref({})
                 <ELViewItem v-model:formModel="formModel" :config />
             </template>
         </el-form>
-        <div class="h-20 flex justify-end items-center">
+        <div class="h-20 flex  items-center" v-if="form.hadSubmit">
             <el-button type="primary" @click="onSubmit">
                 提交
             </el-button>

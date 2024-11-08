@@ -32,12 +32,12 @@ const btnClass = computed(() => {
     else {
         color = 'layui-btn-primary layui-border'
     }
-    return `layui-btn ${color} ${props.config.btnT === 'round' && 'layui-btn-radius'} ${props.config.btnP && 'layui-btn-primary'}`
+    return `layui-btn ${color} ${props.config.btnT === 'round' && 'layui-btn-radius'} ${props.config.btnP && 'layui-btn-primary'} ${props.config.disabled && 'layui-btn-disabled'}`
 })
 
 const btnStyle = computed(() => {
 
-    let style = `font-size:${props.config.fontS || 14}px;color:${props.config.fontC || '#333'}; width:${props.config.btnW || 80}px;height:${props.config.btnH || 30}px;`
+    let style = `font-size:${props.config.fontS || 14}px;color:${props.config.fontC || '#333'}; width:${props.config.btnW};height:${props.config.btnH};`
     if (props.config.btnT === 'circle') {
         style += 'border-radius:50%;padding:0; aspect-ratio:1/1'
     }

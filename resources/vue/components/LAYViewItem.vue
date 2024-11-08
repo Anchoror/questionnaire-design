@@ -43,7 +43,7 @@ onMounted(() => {
 
 
     <div v-if="config.type === 'grid'" class="layui-row" :class="'layui-col-space' + config.gutter">
-        <div v-for="(child, index) in config.children" :key="index" :class="'layui-col-md' + (child.colS[index] / 2)">
+        <div v-for="(child, index) in config.children" :key="index" :class="'layui-col-md' + (config.colS[index] / 2)">
             <template v-for="(item, i) in child" :key="i">
                 <LAYViewItem :config="item" />
             </template>
@@ -55,7 +55,7 @@ onMounted(() => {
             <div class="layui-form-item" :style="itemStyle">
                 <label class="layui-form-label" :style="labelStyle">{{
                     config.label
-                    }}</label>
+                }}</label>
                 <div class="flex-1 layui-input-wrap ml-6">
                     <component :is="layformMap[config.type]" :config />
                 </div>

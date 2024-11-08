@@ -13,7 +13,8 @@ const emit = defineEmits(['update:formModel'])
 <template>
     <div>
         <input v-for="item in config.options" type="checkbox" :name="config.prop" :value="item.value"
-            :title="item.label" :checked="item.value == config.defaultV" class="checkbox-input">
+            :title="item.label" :checked="item.value == config.defaultV" class="checkbox-input"
+            :disabled="config.disabled">
     </div>
 </template>
 

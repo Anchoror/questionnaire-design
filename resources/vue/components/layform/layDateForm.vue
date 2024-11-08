@@ -19,12 +19,12 @@ const isRange = computed(() => {
 })
 
 const init = () => layui.laydate.render({
-        elem: `#date-${props.config.prop}`,
-        type: type.value,
-        format: props.config.dateF,
-        range: isRange.value,
-        rangeLinked: isRange.value
-    })
+    elem: `#date-${props.config.prop}`,
+    type: type.value,
+    format: props.config.dateF,
+    range: isRange.value,
+    rangeLinked: isRange.value
+})
 
 const childRenderFn = inject('childRenderFn')
 childRenderFn.push(`
@@ -39,7 +39,8 @@ childRenderFn.push(`
 </script>
 
 <template>
-    <input type="text" class="layui-input" :id="`date-${config.prop}`" :placeholder="config.placeholder">
+    <input type="text" class="layui-input" :id="`date-${config.prop}`" :placeholder="config.placeholder"
+        :disabled="config.disabled" />
 </template>
 
 <style scoped></style>

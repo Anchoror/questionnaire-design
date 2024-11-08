@@ -13,7 +13,7 @@ const emit = defineEmits(['update:formModel'])
 
 <template>
     <input type="checkbox" :name="config.prop" title="" :value="config.switchA" lay-skin="switch"
-        :checked="config.defaultV === config.switchA"></input>
+        :checked="config.defaultV === config.switchA" :disabled="config.disabled"></input>
 </template>
 
 <style scoped></style>

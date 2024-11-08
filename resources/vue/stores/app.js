@@ -85,7 +85,7 @@ export const appStore = defineStore(
                 clearable: true,
                 filterable: false,
                 multiple: false,
-                selectL: 0,
+                selectL: undefined,
                 options: [{ value: "", label: "请选择" }],
             },
             date: {
@@ -142,6 +142,7 @@ export const appStore = defineStore(
             type: "normal",
             labelW: 3,
             labelP: "right",
+            hadSubmit: true,
         });
 
         // 表单组件配置
@@ -194,9 +195,9 @@ export const appStore = defineStore(
                 type: "slider",
             },
             // {
-            //     name:'文件上传',
-            //     icon:IconLsiconFolderOutline,
-            //     type:'upload'
+            //     name: "文件上传",
+            //     icon: IconLsiconFolderOutline,
+            //     type: "upload",
             // },
 
             // {
@@ -249,7 +250,9 @@ export const appStore = defineStore(
             slider: defineAsyncComponent(() =>
                 import("@/components/form/sliderForm.vue")
             ),
-            // upload: defineAsyncComponent(() => import('@/components/form/uploadForm.vue')),
+            upload: defineAsyncComponent(() =>
+                import("@/components/form/uploadForm.vue")
+            ),
             // score: defineAsyncComponent(() => import('@/components/form/scoreForm.vue')),
 
             grid: defineAsyncComponent(() => import("@/components/List.vue")),

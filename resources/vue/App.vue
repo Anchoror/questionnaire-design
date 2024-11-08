@@ -135,7 +135,7 @@ const initList = [
         "clearable": false,
         "filterable": true,
         "multiple": false,
-        "selectL": 0,
+        "selectL": undefined,
         "options": [
             {
                 "value": "1",
@@ -215,11 +215,43 @@ const initList = [
         "sliderI": false,
         "sliderS": false,
         "sliderR": false
+    },
+    {
+        "type": "select",
+        "label": "这是一个多选",
+        "prop": "mutiple",
+        "id": 9,
+        "defaultV": "",
+        "labelW": 8,
+        "labelP": "left",
+        "span": 10,
+        "disabled": false,
+        "placeholder": "请选择",
+        "clearable": true,
+        "filterable": false,
+        "multiple": true,
+        "selectL": 2,
+        "options": [
+            {
+                "value": "a",
+                "label": "A"
+            },
+            {
+                "label": "B",
+                "value": "b"
+            },
+            {
+                "label": "C",
+                "value": "c"
+            }
+        ]
     }
 ]
 
+const initList2 = []
+
 onMounted(() => {
-    onView()
+    // onView()
 })
 </script>
 
@@ -288,7 +320,7 @@ onMounted(() => {
 
         </div>
         <div class="flex-1 px-2">
-            <List ref="ListRef" :listData="initList"></List>
+            <List ref="ListRef" :listData="initList2"></List>
         </div>
 
         <div class="w-180 h-full px-6 border-l-1 border-l-solid border-gray-300">

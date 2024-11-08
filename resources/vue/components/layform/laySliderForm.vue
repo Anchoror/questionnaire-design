@@ -13,15 +13,16 @@ const emit = defineEmits(['update:formModel'])
 
 
 const init = () => layui.slider.render({
-            elem: `#slider-${props.config.prop}`,
-            min: props.config.sliderMin, // 最小值
-            max: props.config.sliderMax, // 最大值
-            step: props.config.sliderStep, // 步长
-            showstep: props.config.sliderS, // 开启间隔点
-            input: props.config.sliderI, //输入框
-            range: props.config.sliderR, // 范围选择
-            value: props.config.defaultV
-        })
+    elem: `#slider-${props.config.prop}`,
+    min: props.config.sliderMin, // 最小值
+    max: props.config.sliderMax, // 最大值
+    step: props.config.sliderStep, // 步长
+    showstep: props.config.sliderS, // 开启间隔点
+    input: props.config.sliderI, //输入框
+    range: props.config.sliderR, // 范围选择
+    value: props.config.defaultV,
+    disabled: props.config.disabled,
+})
 
 const childRenderFn = inject('childRenderFn')
 childRenderFn.push(`
@@ -33,7 +34,8 @@ childRenderFn.push(`
         showstep: ${props.config.sliderS}, // 开启间隔点
         input: ${props.config.sliderI}, //输入框
         range: ${props.config.sliderR}, // 范围选择
-        value: '${props.config.defaultV}'
+        value: '${props.config.defaultV}',
+        disabled: ${props.config.disabled},
     })
 `)
 </script>

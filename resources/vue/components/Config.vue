@@ -269,6 +269,9 @@ const onChangeColNum = (num) => {
                     <el-input-number v-model="formConfigModel.labelW" placeholder="" step-strictly></el-input-number>
                     <span class="ml-5">em</span>
                 </el-form-item>
+                <el-form-item prop="labelW" label="提交按钮">
+                    <el-switch v-model="formConfigModel.hadSubmit"></el-switch>
+                </el-form-item>
                 <!-- <el-form-item prop="gutter" label="间距">
                     <el-slider v-model="formConfigModel.gutter" :step="2" size="small" :min="0" :max="100" />
                 </el-form-item> -->
